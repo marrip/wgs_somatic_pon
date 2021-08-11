@@ -10,16 +10,18 @@ rule cnvkit_access:
     message:
         "{rule}: Generate access bed file for cnvkit"
     shell:
-        "cnvkit.py access "
-        "{input} "
-        "-s 10000 "
-        "-o {output} &> {log}"
+        """
+        cnvkit.py access \
+        {input} \
+        -s 10000 \
+        -o {output} &> {log}
+        """
 
 
 rule cnvkit_somatic_pon:
     input:
         bam = wgs_std_viper(
-            expand("analysis_output/{sample}/gather_bam_files/{sample}.bam", sample=samples.index),
+            expand("analysis_output/{sample}/gather_bam_files/{sample}_N.bam", sample=samples.index),
         ),
         ref = config["reference"]["fasta"],
         access = "analysis_output/pon/access-10kb.mm2.bed",
@@ -33,10 +35,12 @@ rule cnvkit_somatic_pon:
         "{rule}: Generate panel of normals for cnvkit"
     threads: 40
     shell:
-        "cnvkit.py batch "
-        "-n {input.bam} "
-        "-m wgs "
-        "-f {input.ref} "
-        "-g {input.access} "
-        "-p {threads} "
-        "--output-reference {output} &> {log}"
+        """
+        cnvkit.py batch \
+        -n {input.bam} \
+        -m wgs \
+        -f {input.ref} \
+        -g {input.access} \
+        -p {threads} \
+        --output-reference {output} &> {log}
+        """

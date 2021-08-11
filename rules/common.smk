@@ -67,25 +67,3 @@ subworkflow wgs_std_viper:
 def get_loci(loci):
     loci_tab = pd.read_table(loci, header=None, dtype=str)
     return loci_tab[0].tolist()
-
-
-def get_all_vcf(wildcards):
-    locus = get_loci(config["reference"]["loci"])
-    return expand(
-        "analysis_output/{sample}/mutect2/{sample}_{locus}.vcf",
-        sample=wildcards.sample,
-        locus=locus,
-    )
-
-
-def get_fmt_vcf(wildcards):
-    return " -I ".join(get_all_vcf(wildcards))
-
-
-def get_fmt_sample_vcf(wildcards):
-    return " -V ".join(
-        expand(
-            "analysis_output/{sample}/mutect2/{sample}.vcf",
-            sample=samples.index,
-        ),
-    )
