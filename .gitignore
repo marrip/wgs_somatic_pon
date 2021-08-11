@@ -1,0 +1,6 @@
+**/.cache
+**/.config
+**/.java
+**/.snakemake
+**/analysis_output
+**/subworkflows
