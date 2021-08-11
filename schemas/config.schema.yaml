@@ -1,0 +1,18 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: snakemake configuration file
+type: object
+properties:
+  workflows:
+    type: object
+    properties:
+      wgs_std_viper:
+        type: object
+        properties:
+          url:
+            type: string
+          tag:
+            type: string
+    required:
+      - wgs_std_viper
+  required:
+    - workflows

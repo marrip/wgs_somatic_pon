@@ -1,0 +1,28 @@
+workflows:
+  wgs_std_viper:
+    url: "https://github.com/marrip/wgs_std_viper.git"
+    tag: "1.0.2"
+
+samples: "samples.tsv"
+units: "units.tsv"
+
+reference:
+  adapter:
+    fwd: "TACACTCTTTCCCTACACGACGCTCTTCCGATCT"
+    rev: "GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT"
+  dct: ""
+  fasta: ""
+  intervals: ""
+  loci: ""
+  sites: ""
+
+mutect2:
+  gnomad: ""
+
+tools:
+  cnvkit: "docker://marrip/cnvkit:0.9.9"
+  common: "docker://marrip/common:1.1.0"
+  cutadapt: "docker://marrip/cutadapt:3.3"
+  fastqc: "docker://marrip/fastqc:0.11.9"
+  gatk: "docker://broadinstitute/gatk:4.2.0.0"
+  mosdepth: "docker://marrip/mosdepth:v0.3.1"
