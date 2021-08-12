@@ -6,12 +6,7 @@ properties:
     type: object
     properties:
       wgs_std_viper:
-        type: object
-        properties:
-          url:
-            type: string
-          tag:
-            type: string
+        type: string
     required:
       - wgs_std_viper
   required:

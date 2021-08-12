@@ -1,7 +1,5 @@
 workflows:
-  wgs_std_viper:
-    url: "https://github.com/marrip/wgs_std_viper.git"
-    tag: "prep-t-n"
+  wgs_std_viper: "prep-t-n"
 
 samples: "samples.tsv"
 units: "units.tsv"

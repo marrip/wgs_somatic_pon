@@ -1,8 +1,6 @@
 rule mutect2_normal:
     input:
-        bam=wgs_std_viper(
-            "analysis_output/{sample}/gather_bam_files/{sample}_N.bam",
-        ),
+        bam="analysis_output/{sample}/gather_bam_files/{sample}_N.bam",
         ref=config["reference"]["fasta"],
     output:
         "analysis_output/{sample}/mutect2/{sample}_N_{locus}.vcf"
@@ -47,6 +45,7 @@ rule merge_vcfs_N:
         -D {input.dct} \
         -O {output} &> {log}
         """
+
 
 rule mutect2_genomics_db_import:
     input:

@@ -20,11 +20,9 @@ rule cnvkit_access:
 
 rule cnvkit_somatic_pon:
     input:
-        bam = wgs_std_viper(
-            expand("analysis_output/{sample}/gather_bam_files/{sample}_N.bam", sample=samples.index),
-        ),
-        ref = config["reference"]["fasta"],
-        access = "analysis_output/pon/access-10kb.mm2.bed",
+        bam=expand("analysis_output/{sample}/gather_bam_files/{sample}_N.bam", sample=samples.index),
+        ref=config["reference"]["fasta"],
+        access="analysis_output/pon/access-10kb.mm2.bed",
     output:
         "analysis_output/pon/cnvkit_somatic_pon.cnn"
     log:

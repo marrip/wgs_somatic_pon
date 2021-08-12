@@ -6,7 +6,7 @@ from snakemake.utils import validate
 from snakemake.utils import min_version
 
 
-min_version("5.32.0")
+min_version("6.5.3")
 
 
 ### Set and validate config file
@@ -21,49 +21,24 @@ samples = pd.read_table(config["samples"], dtype=str).set_index("sample", drop=F
 
 validate(samples, schema="../schemas/samples.schema.yaml")
 
-### Import subworkflows
-
-
-def get_subworkflow(name, url, tag, target):
-    Path(target).mkdir(exist_ok=True)
-    repo_dir = "{base}/{repo}".format(base=target, repo=name)
-    if not os.path.exists(repo_dir):
-        git.Git(target).clone(url, branch=tag)
-        print("Successfully retrieved {name} version {tag}".format(name=name, tag=tag))
-    else:
-        git.Git(repo_dir).checkout(tag)
-        print(
-            "Successfully checked out {name} version {tag}".format(name=name, tag=tag)
-        )
-    return
-
-
-def get_all_subworkflows(config, target):
-    for workflow in config["workflows"]:
-        get_subworkflow(
-            workflow,
-            config["workflows"][workflow]["url"],
-            config["workflows"][workflow]["tag"],
-            target,
-        )
-
-
-work_dir = os.getcwd()
-
-swf_dir = "{workdir}/subworkflows".format(workdir=work_dir)
-
-get_all_subworkflows(config, swf_dir)
-
-
-subworkflow wgs_std_viper:
-    workdir: work_dir
-    snakefile: "{swfdir}/wgs_std_viper/Snakefile".format(swfdir=swf_dir)
-    configfile: "{workdir}/config.yaml".format(workdir=work_dir)
-
 
 ### Functions
+
+
+def get_snakefile(workflow, tags):
+    return "https://github.com/marrip/%s/raw/%s/Snakefile" % (workflow, tags[workflow])
 
 
 def get_loci(loci):
     loci_tab = pd.read_table(loci, header=None, dtype=str)
     return loci_tab[0].tolist()
+
+
+### Import subworkflows
+
+
+module wgs_std_viper:
+    snakefile: get_snakefile("wgs_std_viper", config["workflows"])
+    config: config
+
+use rule * from wgs_std_viper as wgs_std_*
