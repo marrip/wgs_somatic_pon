@@ -1,12 +1,12 @@
 rule cnvkit_access:
     input:
-        config["reference"]["fasta"]
+        config["reference"]["fasta"],
     output:
         "analysis_output/pon/access-10kb.mm2.bed",
     container:
         config["tools"]["cnvkit"]
     log:
-        "analysis_output/pon/cnvkit_access.log"
+        "analysis_output/pon/cnvkit_access.log",
     message:
         "{rule}: Generate access bed file for cnvkit"
     shell:
@@ -20,13 +20,16 @@ rule cnvkit_access:
 
 rule cnvkit_somatic_pon:
     input:
-        bam=expand("analysis_output/{sample}/gather_bam_files/{sample}_N.bam", sample=samples.index),
+        bam=expand(
+            "analysis_output/{sample}/gather_bam_files/{sample}_N.bam",
+            sample=get_normals(),
+        ),
         ref=config["reference"]["fasta"],
         access="analysis_output/pon/access-10kb.mm2.bed",
     output:
-        "analysis_output/pon/cnvkit_somatic_pon.cnn"
+        "analysis_output/pon/cnvkit_somatic_pon.cnn",
     log:
-        "analysis_output/pon/cnvkit_somatic_pon.log"
+        "analysis_output/pon/cnvkit_somatic_pon.log",
     container:
         config["tools"]["cnvkit"]
     message:
@@ -40,5 +43,6 @@ rule cnvkit_somatic_pon:
         -f {input.ref} \
         -g {input.access} \
         -p {threads} \
+        -d analysis_output/pon/ \
         --output-reference {output} &> {log}
         """

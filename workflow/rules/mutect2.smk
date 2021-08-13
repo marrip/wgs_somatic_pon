@@ -3,9 +3,9 @@ rule mutect2_normal:
         bam="analysis_output/{sample}/gather_bam_files/{sample}_N.bam",
         ref=config["reference"]["fasta"],
     output:
-        "analysis_output/{sample}/mutect2/{sample}_N_{locus}.vcf"
+        temp("analysis_output/{sample}/mutect2/{sample}_N_{locus}.vcf"),
     log:
-        "analysis_output/{sample}/mutect2/mutect2_N_{locus}.log"
+        "analysis_output/{sample}/mutect2/mutect2_N_{locus}.log",
     container:
         config["tools"]["gatk"]
     message:
@@ -51,10 +51,10 @@ rule mutect2_genomics_db_import:
     input:
         vcf=expand(
             "analysis_output/{sample}/mutect2/{sample}_N.vcf",
-            sample=samples.index,
+            sample=get_normals(),
         ),
         ref=config["reference"]["fasta"],
-        intervals=config["reference"]["intervals"]
+        intervals=config["reference"]["intervals"],
     output:
         directory("analysis_output/pon/mutect2_somatic_pon"),
     params:
