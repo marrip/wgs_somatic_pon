@@ -1,6 +1,5 @@
 **/.cache
 **/.config
-**/.java
 **/.snakemake
-**/analysis_output
-**/subworkflows
+**/mutect2
+**/pon
