@@ -1,0 +1,15 @@
+samples: "samples.tsv"
+units: "units.tsv"
+
+reference:
+  dct: ""
+  fasta: ""
+  intervals: ""
+  loci: ""
+
+mutect2:
+  gnomad: ""
+
+tools:
+  cnvkit: "docker://marrip/cnvkit:0.9.9"
+  gatk: "docker://broadinstitute/gatk:4.2.0.0"
