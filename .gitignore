@@ -2,4 +2,6 @@
 **/.config
 **/.snakemake
 **/mutect2
-**/pon
+**/pon/cnvkit*
+**/pon/mutect2*
+**/pon/*target*
