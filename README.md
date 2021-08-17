@@ -93,3 +93,7 @@ HPC clusters, it is recommended to use a cluster profile and run something like:
 ```bash
 snakemake -s /path/to/Snakefile --profile my-awesome-profile
 ```
+
+## :judge: Rule Graph
+
+![rule_graph](https://raw.githubusercontent.com/marrip/wgs_somatic_pon/main/images/rulegraph.svg)
