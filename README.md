@@ -13,7 +13,7 @@ a plethora of tools. Which can in turn be used for variant calling analyses.
 ### Mutect2
 
 The PoN is generated according to the best practices from GATK as described in
-this [tutorial](https://gatk.broadinstitute.org/hc/en-us/articles/360035531132).
+[this tutorial](https://gatk.broadinstitute.org/hc/en-us/articles/360035531132).
 For each `.bam` file of a normal sample variants are called using
 [mutect2](https://gatk.broadinstitute.org/hc/en-us/articles/360037593851-Mutect2)
 and combined into a `.vcf` file representing the PoN.
@@ -29,9 +29,7 @@ which is generated in two steps from `.bam` files of normal samples.
 To run this workflow, the following tools need to be available:
 
 ![python](https://img.shields.io/badge/python-3.8-blue)
-
 [![snakemake](https://img.shields.io/badge/snakemake-6.0.0-blue)](https://snakemake.readthedocs.io/en/stable/)
-
 [![singularity](https://img.shields.io/badge/singularity-3.7-blue)](https://sylabs.io/docs/)
 
 ## :school_satchel: Preparations
